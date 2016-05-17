@@ -14,9 +14,21 @@ void main() {
   vec3 position = tmpPos.xyz;
   vec3 velocity = texture2D( textureVelocity, vUv ).xyz;
 
-  //vec4 tmpPos2 = texture2D( textureTargetPosition, vUv );
   //gl_FragColor = vec4( tmpPos2.xyz , 1.0 );
 
-  gl_FragColor = vec4( position + velocity * delta , 1.0 );
+
+
+
+  vec3 newPosition =  position + velocity * delta;
+
+  #ifdef MODE_FLAG_IMMEDIATE
+    vec4 targetPosition = texture2D( textureTargetPosition, vUv );
+    
+    if(targetPosition.a > 0.0){
+      newPosition = targetPosition.xyz;
+    }
+  #endif  
+  
+  gl_FragColor = vec4( newPosition , 1.0 );
 
 }

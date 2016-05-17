@@ -3,10 +3,11 @@ import Stats from "stats-js";
 
 const stats = new Stats();
 const gui = new GUI();
+const params = {}
 
 const obj = {
   enable: enable,
-  stats, gui
+  stats, gui, params
 }
 
 function enable(){

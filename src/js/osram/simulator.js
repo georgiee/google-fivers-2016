@@ -9,6 +9,7 @@ import * as utils from './utils';
 import PositionMaterial from './shaders/simulate-position';
 import VelocityMaterial from './shaders/simulate-velocity';
 import PassThroughMaterial from './shaders/pass-through';
+import FlagManager from './core/flag-manager';
 
 const positionMaterial = PositionMaterial.create();
 const velocityMaterial = VelocityMaterial.create();
@@ -28,24 +29,39 @@ export default {
 export class Simulator extends Emitter{
   constructor(renderer, size){
     super();
-    
     this._renderer = renderer;
     this._size = size;
+    
     this.init();
+    this._velocityFlags = FlagManager.create(this._velocityPass.material, 'MODE_FLAG_');
+    this._positionFlags = FlagManager.create(this._positionPass.material, 'MODE_FLAG_');
   }
   
+  get velocityFlags(){
+    return this._velocityFlags;
+  }
+
+  get positionFlags(){
+    return this._positionFlags;
+  }
+
   get size(){
     return this._size;
   }
-
+  
   stepPosition(dt, time){
     var positionUniforms = this._positionPass.material.uniforms;
 
     positionUniforms.texturePosition.value = this._position.source;
     positionUniforms.textureVelocity.value = this._velocity.source;
+    
+    if(this._currentDestination){
+      positionUniforms.textureTargetPosition.value = this._currentDestination.source;  
+    }
+    
+
     positionUniforms.delta.value = dt;
     positionUniforms.time.value = time;
-
     this._positionPass.render(this._renderer, this._position.write)
   }
   
@@ -54,10 +70,14 @@ export class Simulator extends Emitter{
 
     velocityUniforms.texturePosition.value = this._position.source;
     velocityUniforms.textureVelocity.value = this._velocity.source;
+    
+    if(this._currentDestination){
+      velocityUniforms.textureTargetPosition.value = this._currentDestination.source;
+    }
 
     velocityUniforms.delta.value = dt;
     velocityUniforms.time.value = time;
-    
+
     this._velocityPass.render(this._renderer, this._velocity.write)
   }
 
@@ -71,10 +91,8 @@ export class Simulator extends Emitter{
     this._velocity.swap();
   }
   
-  setDestination(value){
+  setTargetPositions(value){
     this._currentDestination = value;
-    this._velocityPass.material.uniforms.textureTargetPosition.value = this._currentDestination;
-    this._positionPass.material.uniforms.textureTargetPosition.value = this._currentDestination;
   }
 
   reset(){

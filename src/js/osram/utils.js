@@ -2,6 +2,13 @@ import THREE from 'three';
 import GeometryUtils from 'imports?THREE=three!exports?THREE.GeometryUtils!./extra/GeometryUtils';
 import fontDef from 'raw!three/examples/fonts/helvetiker_regular.typeface.js';
 
+const geometryParser = new THREE.JSONLoader().parse;
+export function parseGeometryJson(json){
+  var model = geometryParser( json );
+  return model.geometry;  
+}
+
+
 const defaultPointGenerator = function(wValue = 1){
 
   return (data, k, count) => {

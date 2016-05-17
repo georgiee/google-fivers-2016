@@ -11,6 +11,7 @@
 #define PS_CAM_MAX_DIST 12.0
 
 varying vec3 vColor;
+varying vec3 vPos;
 
 uniform sampler2D tPos;
 uniform float uTime;
@@ -21,14 +22,13 @@ uniform float uColorFreq;
 uniform float uColorSpeed;
 
 //varying float vPointSize;
-
 void main() {
     vColor = mix(uColor1, uColor2, sin(uColorSpeed*uTime + uColorFreq*position.z*M_2PI)/2.0+0.5);
     vec3 pos = texture2D(tPos, position.xy).rgb;
+    vPos = pos;
     
     vec3 camToPos = pos - cameraPosition;
     float camDist = length(camToPos);
-
     gl_PointSize = max(uPointSize * PS_CAM_MAX_DIST/camDist, 1.0);
     //vPointSize = max(uPointSize * PS_CAM_MAX_DIST/camDist, 1.0);
 
