@@ -14,6 +14,8 @@ uniform float delta;
 uniform sampler2D textureVelocity;
 uniform sampler2D texturePosition;
 uniform sampler2D textureTargetPosition;
+uniform vec3 uInputPos;
+uniform vec3 uInputVelocity;
 varying vec2 vUv;
 
 
@@ -66,21 +68,33 @@ void main() {
   #endif
 
   
+  
+
   //targetPoint = tunnel(vUv, time);
   //steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 12.3, 1.5);
   //accel += steering_force / mass;
+  #ifdef MODE_FLAG_INPUT
+    if(length(uInputVelocity) > 0.0 ){
+      steering_force = -1.0 * steerToSeek(uInputPos, currentPosition, currVelocity, 5.0, 3.0);
+      accel += steering_force / mass;  
+    }
+    
+  #endif
 
   #ifdef MODE_FLAG_TARGET
     
     if(targetPosition.a > 0.0){
 
       targetPoint = targetPosition.xyz;
-      steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 2.3, 1.5);
+      steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 1.0, 3.5);
       steering_force += 0.1 * noise(currentPosition);
     
     }else{
-      targetPoint = s_plane_point(vUv, currentPosition, 2.0);//a plane
-      steering_force = steerToArrive(targetPoint, currentPosition, currVelocity);
+      //targetPoint = s_plane_point(vUv, currentPosition, 2.0);//a plane
+      //steering_force = steerToArrive(targetPoint, currentPosition, currVelocity);
+
+      steering_force = s_galaxy_force(vUv, time, currentPosition, currVelocity);
+      //accel += steering_force / mass;
     }
 
     accel += steering_force / mass;

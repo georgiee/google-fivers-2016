@@ -65,6 +65,10 @@ export class Simulator extends Emitter{
     this._positionPass.render(this._renderer, this._position.write)
   }
   
+  get velocityUniforms(){
+    return this._velocityPass.material.uniforms;
+  }
+
   stepVelocity(dt, time){
     var velocityUniforms = this._velocityPass.material.uniforms;
 

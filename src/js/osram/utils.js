@@ -174,3 +174,20 @@ export function createRenderTarget(size, name ='particleTarget') {
 
   return target;
 }
+
+
+
+
+/*
+
+
+
+Align plane to normal:
+var nor = pos.clone().sub(camera.position).normalize();
+
+  var plane = new THREE.Plane(
+      nor, -nor.x*pos.x - nor.y*pos.y - nor.z*pos.z
+  );
+var quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1), plane.normal);
+this.plane.setRotationFromQuaternion(quaternion);
+ */

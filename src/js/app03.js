@@ -9,6 +9,7 @@ import AnimatedMesh from './osram/core/animated-mesh';
 const SIMULATION_SIZE = 200;
 
 import MeshPlotter from './osram/mesh-plotter';
+import SpaceMouse from './osram/space-mouse';
 
 function preload(cb){
   var loader = new Loader();
@@ -30,17 +31,22 @@ function createMesh(json, scale = 1.0){
 
 
 function create(loadedObjects){
+  
+
   const world = World.create(debug.enable());
   world.camera.position.set(-3,2,0);
   world.camera.lookAt(world.scene.position);
 
+
   const simulator = Simulator.create(world.renderer, SIMULATION_SIZE);
+  SpaceMouse.create(world, simulator.velocityUniforms);
 
   let particles = new Particles(SIMULATION_SIZE);
   world.scene.add(particles)
   
   let meshPlotter = new MeshPlotter(world.renderer, SIMULATION_SIZE);
   simulator.setTargetPositions(meshPlotter.target)
+
 
   world.on('fixedstep', function(dt, time){
     simulator.step(dt, time );
@@ -56,11 +62,13 @@ function create(loadedObjects){
   simulator.velocityFlags.target = false;
   simulator.velocityFlags.noise = false;
   simulator.velocityFlags.galaxy = false;
+  simulator.velocityFlags.input = false;
 
   debug.gui.add(simulator.velocityFlags, 'random');
   debug.gui.add(simulator.velocityFlags, 'target').listen();
   debug.gui.add(simulator.velocityFlags, 'noise');
   debug.gui.add(simulator.velocityFlags, 'galaxy');
+  debug.gui.add(simulator.velocityFlags, 'input');
   
   simulator.positionFlags.immediate = false;
   debug.gui.add(simulator.positionFlags, 'immediate');

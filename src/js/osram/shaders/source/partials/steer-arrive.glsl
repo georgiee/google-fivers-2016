@@ -1,5 +1,4 @@
-vec3 steerToArrive(vec3 target, vec3 position, vec3 velocity){
-  float max_speed = 10.0;
+vec3 steerToArrive(vec3 target, vec3 position, vec3 velocity, float max_speed){
   float slowing_distance = 2.0;
 
   vec3 target_offset = target - position;

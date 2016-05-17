@@ -1,6 +1,5 @@
 import rand from './rand';
 
-#define SPEED     5.0
 #define EPS     0.1
 #define K_NOISE_ACCEL 0.1
 
@@ -11,7 +10,7 @@ import rand from './rand';
 
 #define K_NUM_ARMS 7.0
 #define K_HEIGHT 0.5
-#define K_SPIN_SPEED 0.25
+#define K_SPIN_SPEED 0.35
 
 #define K_NOISE_ACCEL 0.1
 
@@ -47,10 +46,10 @@ vec3 s_galaxy_force(vec2 coords, float time, vec3 currentPosition, vec3 currVelo
       heightParam,
       radius * cos(spinParam)
   );
-  targetPos *= 1.0;
+  targetPos *= 3.0;
 
   float ratio = randVal * (radialArms/2.0+0.5);
-  vec3 steering_force = steerToArrive(targetPos, currentPosition, currVelocity);
+  vec3 steering_force = steerToArrive(targetPos, currentPosition, currVelocity, 20.0);
 
   steering_force = steering_force * ratio;
   //steering_force = steering_force + noise(currentPosition) * K_NOISE_ACCEL;

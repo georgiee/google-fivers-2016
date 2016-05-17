@@ -34,12 +34,20 @@ class World extends Emitter{
     return this._scene;
   }
   
+  get canvas(){
+    return this._canvas;
+  }
+  
   get renderer(){
     return this._renderer;
   }
 
   get camera(){
     return this._camera;
+  }
+  
+  get controls(){
+    return this._controls;
   }
   
   init(){
@@ -52,6 +60,10 @@ class World extends Emitter{
     this._scene = this.viewer.scene;
     this._renderer = this.viewer.renderer;
     this._camera = this.viewer.camera;
+    this._canvas = this.viewer.renderer.domElement;
+    this._controls = this.viewer.controls;
+    //this._controls.enabled = false;
+    
 
     this.viewer.on('tick', this.tick.bind(this));
     this.viewer.on('render', this.render.bind(this));
