@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import path from 'path';
 
 const developmentFlags = {
   devtool: 'source-map',
@@ -16,7 +17,9 @@ const output = {
   sourceMapFilename: '[file].map'
 }
 
-const externals = { }
+const externals = {
+  "dat.GUI": "dat.GUI"
+}
 
 
 const loaders = [
@@ -48,6 +51,7 @@ const plugins = [
 ]
 
 const resolve = {
+  root: path.resolve(__dirname, 'js'),
   alias :{
     "three-hmr" : "webpack-three-hmr-test/lib/three-hmr"
   }

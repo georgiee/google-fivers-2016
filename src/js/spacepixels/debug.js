@@ -1,8 +1,8 @@
-import {GUI} from "dat.GUI/build/dat.gui";
+import GUI from "dat.GUI";
 import Stats from "stats-js";
 
 const stats = new Stats();
-const gui = new GUI();
+const gui = new dat.GUI();
 const params = {}
 
 const obj = {

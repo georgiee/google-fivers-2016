@@ -27,6 +27,8 @@ void main() {
     if(targetPosition.a > 0.0){
       newPosition = targetPosition.xyz;
     }
+
+    //newPosition = vec3(vUv.x, vUv.y, 0.0);
   #endif  
   
   gl_FragColor = vec4( newPosition , 1.0 );

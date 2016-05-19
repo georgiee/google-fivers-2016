@@ -1,15 +1,14 @@
-import debug from './osram/debug';
-import World from './osram/core/world';
-import Simulator from './osram/simulator';
-import Particles from './osram/particles';
-import * as Utils from './osram/utils';
+import debug from './spacepixels/debug';
+import World from './spacepixels/core/world';
+import Simulator from './spacepixels/simulator';
+import Particles from './spacepixels/particles';
+import * as Utils from './spacepixels/utils';
 import Loader from 'resource-loader';
-import AnimatedMesh from './osram/core/animated-mesh';
+import AnimatedMesh from './spacepixels/core/animated-mesh';
 
 const SIMULATION_SIZE = 200;
-
-import MeshPlotter from './osram/mesh-plotter';
-import SpaceMouse from './osram/space-mouse';
+import MeshPlotter from './spacepixels/mesh-plotter';
+import SpaceMouse from './spacepixels/space-mouse';
 
 function preload(cb){
   var loader = new Loader();

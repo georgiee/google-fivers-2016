@@ -10,10 +10,10 @@ export default class Particles extends THREE.Points{
     super(new ParticlesGeometry(size), particleShader);
   }
 
-  update(positions, time){
+  update(positionBuffer, time){
     var uniforms = this.material.uniforms;
 
-    uniforms.tPos.value = positions;
+    uniforms.tPos.value = positionBuffer;
     uniforms.uTime.value = time;
   }
 }

@@ -49,6 +49,10 @@ export class Simulator extends Emitter{
     return this._size;
   }
   
+  get positionBuffer(){
+    return this._position.source;
+  }
+
   stepPosition(dt, time){
     var positionUniforms = this._positionPass.material.uniforms;
 
