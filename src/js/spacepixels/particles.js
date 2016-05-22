@@ -3,7 +3,7 @@ import ParticleShader from './shaders/particles';
 
 const particleShader = ParticleShader.create();
 //particleShader.uniforms.uAlpha.value = 1.0;
-particleShader.uniforms.uPointSize.value = 2.5;
+particleShader.uniforms.uPointSize.value = 5;
 
 export default class Particles extends THREE.Points{
   constructor(size){

@@ -21,7 +21,7 @@ void main() {
 
   vec3 newPosition =  position + velocity * delta;
 
-  #ifdef MODE_FLAG_IMMEDIATE
+  #ifdef MODE_FLAG_IMMEDIATE //move immediate to the given target position to see the calculated position
     vec4 targetPosition = texture2D( textureTargetPosition, vUv );
     
     if(targetPosition.a > 0.0){

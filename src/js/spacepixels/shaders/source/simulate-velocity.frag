@@ -17,7 +17,7 @@ uniform sampler2D textureTargetPosition;
 uniform vec3 uInputPos;
 uniform vec3 uInputVelocity;
 varying vec2 vUv;
-
+uniform vec3 uTargetPosition;
 
 
 import noise from './curl-noise';
@@ -41,10 +41,10 @@ import steerToSeek from './partials/steer-seek';
 #define FADE_COLOR vec3(0.125, 0.25, 0.5)
 #define FADE_POWER 1.0
 
+#define EQUALS(A,B) ( abs((A)-(B)) < EPS )
+#define EQUALSZERO(A) ( ((A)<EPS) && ((A)>-EPS) )
 
-
-
-#define MAX_SPEED 2.0
+#define MAX_SPEED 200.0
 
 void main() {
   float decay = 0.99;
@@ -57,7 +57,7 @@ void main() {
   vec3 accel = vec3(0.0);
   
   vec3 targetPoint;
-  vec3 steering_force;
+  vec3 steering_force = vec3(0.0);
 
   #ifdef MODE_FLAG_NOISE
     accel += 0.1 * noise(currentPosition);
@@ -81,25 +81,46 @@ void main() {
     
   #endif
 
-  #ifdef MODE_FLAG_TARGET
+  #ifdef MODE_FLAG_FOLLOWPOINT
+    float distance = length(uTargetPosition - currentPosition );
+    
+    steering_force = 1.0 * steerToSeek(uTargetPosition, currentPosition, currVelocity, 5.0, 0.5);
+      accel += steering_force / mass;   
+      accel += noise(currentPosition + vec3(vUv, 1.0)) * 0.5;
+    
+    
+  #endif
+
+  #ifdef MODE_FLAG_TEXT
     
     if(targetPosition.a > 0.0){
-
       targetPoint = targetPosition.xyz;
-      steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 1.0, 3.5);
-      steering_force += 0.1 * noise(currentPosition);
-    
+      steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 1.0, 1.0);
     }else{
-      //targetPoint = s_plane_point(vUv, currentPosition, 2.0);//a plane
-      //steering_force = steerToArrive(targetPoint, currentPosition, currVelocity);
-
       steering_force = s_galaxy_force(vUv, time, currentPosition, currVelocity);
-      //accel += steering_force / mass;
     }
 
     accel += steering_force / mass;
 
   #endif
+
+  #ifdef MODE_FLAG_PLOTTER
+    targetPoint = targetPosition.xyz;
+    float distanceTo = length(targetPoint - currentPosition);
+    if(targetPosition.a == 1.0 && !EQUALSZERO(distanceTo)){//only points with a=1 are 'activated' and part of the current model
+
+      steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 5.0, 1.0);
+      //steering_force = vec3(0.0);
+    }else{
+      //non involved points get some noise
+      steering_force = noise(currentPosition + vec3(vUv, 1.0)) * 0.5;
+      //steering_force = steerToSeek(targetPoint, currentPosition, currVelocity, 1.0, 1.0);
+    }
+    //steering_force = noise( vec3(vUv, 1.0)) * 0.5;
+    accel += steering_force / mass;
+
+  #endif
+
 
   #ifdef MODE_FLAG_GALAXY
     steering_force = s_galaxy_force(vUv, time, currentPosition, currVelocity);
@@ -109,10 +130,10 @@ void main() {
   
 
   vec3 velocity = decay * currVelocity + accel * delta;
-  
   if(length(velocity) > MAX_SPEED){
-    velocity = normalize(velocity) * MAX_SPEED;
+    //velocity = normalize(velocity) * MAX_SPEED;
   }
+  //velocity = vec3(0.0);
   
   
   gl_FragColor = vec4(velocity, 1.0 );

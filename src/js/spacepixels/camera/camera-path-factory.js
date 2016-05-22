@@ -14,20 +14,29 @@ function defaultPath(){
     new THREE.Vector3(-112.52454145144266, 36.4381108142651, 49.9097904148296),
     new THREE.Vector3(0, 0, 152.71152905138982)
   ]
+  var matrix = createMatrix(0.1);
 
+
+  for ( var i = 0, il = vertices.length; i < il; i ++ ) {
+
+    var vertex = vertices[ i ];
+    vertex.applyMatrix4( matrix );
+
+  }
   return generatePath(vertices)
 }
 
-function createMatrix(){
+function createMatrix(scale = 1){
   var matrix = new THREE.Matrix4();
+  matrix.multiplyScalar(0.01);
   return matrix;
 
-  var euler = new THREE.Euler( Math.PI, 0, 0, 'YXZ' );
+  //var euler = new THREE.Euler( Math.PI, 0, 0, 'YXZ' );
   var q = new THREE.Quaternion();
   q.setFromEuler(euler) 
 
   var p = new THREE.Vector3(0,0,0),
-    s = new THREE.Vector3(1,1,1);
+    s = new THREE.Vector3(scale,scale,scale);
 
   matrix.compose(p, q, s)
 }

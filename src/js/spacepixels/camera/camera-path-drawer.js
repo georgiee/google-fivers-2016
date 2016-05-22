@@ -9,11 +9,11 @@ export default class CameraDebugPath extends THREE.Object3D{
   createArrow(){
     var dir = new THREE.Vector3( 1, 0, 0 );
     var origin = new THREE.Vector3( 0, 0, -1 );
-    var length = 10;
+    var length = 1;
     var hex = 0xff0000;
-    var headWidth = 5;
+    var headWidth = 0.5;
     var arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headWidth );
-    arrowHelper.scale.set(10,10,10)
+    arrowHelper.scale.set(1,1,1)
     arrowHelper.up = new THREE.Vector3( 1, 0, 0 );
     this.arrowHelper = arrowHelper;
     this.add(this.arrowHelper)

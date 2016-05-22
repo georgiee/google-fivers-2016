@@ -12,7 +12,7 @@ export function parseGeometryJson(json){
 const defaultPointGenerator = function(wValue = 1){
 
   return (data, k, count) => {
-    var bounds = 4.0;
+    var bounds = 10.0;
     var x = Math.random() * bounds - bounds/2;
     var y = Math.random() * bounds - bounds/2;
     var z = Math.random() * bounds - bounds/2;
@@ -35,6 +35,13 @@ const longRow = function(data, k, count){
   data[ k + 3 ] = 1;
 }
 
+export function createMeshFromJson(json, scale = 1.0){
+  var mesh = new THREE.Mesh( parseGeometryJson(json), new THREE.MeshNormalMaterial() );
+
+  mesh.geometry.center();
+  mesh.scale.setScalar(scale);
+  return mesh;
+}
 
 function generateRandomPoints(count, generator){
  var data = new Float32Array( count * 4 );
@@ -47,6 +54,14 @@ function generateRandomPoints(count, generator){
   return data;
 }
 
+export function getClearTexture(size) {
+  var a = generateRandomPoints(size * size, defaultPointGenerator(0));
+  var texture = new THREE.DataTexture( a, size, size, THREE.RGBAFormat, THREE.FloatType );
+  texture.needsUpdate = true;
+
+  return texture;
+
+}
 export function generatePositionTexture(size) {
   var a = generateRandomPoints(size * size, defaultPointGenerator(1));
   //var a = generateRandomPoints(size * size, longRow);
@@ -79,8 +94,8 @@ export function generateTextPoints(text = 'hello', size, pointCount){
 
   });
 
-  textGeo.applyMatrix( new THREE.Matrix4().makeTranslation( -0.9, 0, 0.2 ) );
-  //textGeo.applyMatrix( new THREE.Matrix4().makeTranslation( -0.9, 10, 0.2 ) );  
+  textGeo.center();
+  textGeo.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 1, 0 ) ); //move up a little
 
   var data = generateRandomPoints(size * size, defaultPointGenerator(0));//assign 0 to w so that the pass  through shader discard the position and uses the old one isntead
 

@@ -99,7 +99,11 @@ export class Simulator extends Emitter{
     this._velocity.swap();
   }
   
-  setTargetPositions(value){
+  clearTargetPositions(){
+    delete this._currentDestination;
+  }
+
+  setTargetPositions(value){//pinpong
     this._currentDestination = value;
   }
 

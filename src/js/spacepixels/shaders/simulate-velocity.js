@@ -10,8 +10,9 @@ const fragmentShader = glslify('./source/simulate-velocity.frag')
 const uniforms = {
   time: { type: "f", value: 1.0 },
   delta: { type: "f", value: 0.0 },
-  "uInputPos": { type: "v3", value: new THREE.Vector3() },
-  "uInputVelocity": { type: "v3", value: new THREE.Vector3(1,0,0) },
+  uTargetPosition: { type: "v3", value: new THREE.Vector3() },
+  uInputPos: { type: "v3", value: new THREE.Vector3() },
+  uInputVelocity: { type: "v3", value: new THREE.Vector3(1,0,0) },
   texturePosition: { type: "t", value: null },
   textureTargetPosition: { type: "t", value: null },
   textureVelocity: { type: "t", value: null },

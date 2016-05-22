@@ -5,22 +5,13 @@ import debounce from 'lodash/function/debounce';
 import Ticker from './ticker';
 
 const contextAttributes = {
-  depth: true,
-  alpha: false,
-  depth: true,
   stencil: false,
   antialias: false,
   premultipliedAlpha: true,
   preserveDrawingBuffer: false,
   logarithmicDepthBuffer: false,
-  autoClear: true,
-  clearColor: 0x0,
-  clearAlpha: 1,
-  sortObjects: true,
-  shadowMapEnabled: false,
-  shadowMapType: THREE.PCFShadowMap,
-  shadowMapCullFace: THREE.CullFaceFront,
-  shadowMapDebug: false
+  alpha: true,
+  depth: true
 }
 
 const createOrbitViewer = require('three-orbit-viewer')(THREE)
@@ -70,7 +61,10 @@ class World extends Emitter{
       canvas: gl.canvas        
     })
     
-    this._renderer.setClearColor( 0 );
+    this._renderer.autoClear = true;
+    this._renderer.setClearColor( 0, 1 );
+    //this._renderer.autoClearColor = false;;
+
     this._canvas = gl.canvas;
     this._canvas.width = width;
     this._canvas.height = height;

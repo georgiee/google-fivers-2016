@@ -69,7 +69,7 @@ class World extends Emitter{
     this.viewer.on('render', this.render.bind(this));
 
 
-    let axisHelper = new THREE.AxisHelper( 2 );
+    let axisHelper = new THREE.AxisHelper( 1 );
     this.scene.add( axisHelper );
 
     this._timer = new Timer();
