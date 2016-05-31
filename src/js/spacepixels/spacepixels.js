@@ -1,11 +1,9 @@
 import debug from './debug';
 import World from './core/world';
-import MeshPlotter from './mesh-plotter';
+
 import Simulator from './simulator';
 import Particles from './particles';
 import Emitter from 'events';
-import * as utils from './utils';
-import BufferPingPong from './core/buffer-ping-pong';
 
 export default class Spacepixels extends Emitter{
   constructor(size){
@@ -14,11 +12,15 @@ export default class Spacepixels extends Emitter{
     this.handleFixedStep = this.handleFixedStep.bind(this);
     this.init();
   }
+
+  get size(){
+    return this._size;
+  }
   
   handleFixedStep(dt, time){
     this.simulator.step(dt, time );
-    this.meshPlotter.update(dt);
-    this.meshPlotter.render();
+    this.emit('step', dt, time);
+    
     this.particles.update(this.simulator.positionBuffer, time)
   }
   
@@ -26,7 +28,6 @@ export default class Spacepixels extends Emitter{
     this.initWorld();
     this.initSimulator();  
     this.initParticles();
-    this.initMeshPlotter();
   }
   
   initWorld(){
@@ -50,36 +51,5 @@ export default class Spacepixels extends Emitter{
     this.world.scene.add(particles)   
 
     this.particles = particles;
-  }
-  
-  initMeshPlotter(){
-    let meshPlotter = new MeshPlotter(this.world.renderer, this._size);
-    this.meshPlotter = meshPlotter;
-    this.simulator.setTargetPositions(meshPlotter.target)
-
-    //this.world.scene.add(this.meshPlotter.debugPlane);
-  }
-
-  showMesh(mesh){
-    this.simulator.velocityFlags.plotter = true;
-    this.meshPlotter.setMesh(mesh);
-  }
-
-  clearText(){
-    this.simulator.velocityFlags.text = false;
-    this.simulator.clearTargetPositions();
-  }
-  
-  setText(value){
-    if(!value || value.length < 1){
-      this.clearText();
-      return;
-    }
-
-    let dtPositionTexture = utils.generateTextPoints(value, this._size, this._size*this._size);
-    let buffer = new BufferPingPong(dtPositionTexture);
-    
-    this.simulator.setTargetPositions(buffer);
-    this.simulator.velocityFlags.text = true;
   }
 }

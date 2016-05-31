@@ -1,3 +1,7 @@
+A: Target Aniamtion (part of the pixels)
+B: Idle Animation (rest of particle), like galaxy, noise, ..
+
+
 Generic Debug Panels for render targets
 (to look into velociyt, position, etc)
 

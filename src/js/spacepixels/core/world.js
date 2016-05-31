@@ -1,7 +1,7 @@
 import Emitter from 'events';
 import createContext from 'webgl-context';
 import observerCamera from './observer-camera';
-import debounce from 'lodash/function/debounce';
+import debounce from 'lodash/debounce';
 import Ticker from './ticker';
 
 const contextAttributes = {

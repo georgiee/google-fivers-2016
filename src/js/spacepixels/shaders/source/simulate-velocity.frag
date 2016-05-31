@@ -84,11 +84,11 @@ void main() {
   #ifdef MODE_FLAG_FOLLOWPOINT
     float distance = length(uTargetPosition - currentPosition );
     
-    steering_force = 1.0 * steerToSeek(uTargetPosition, currentPosition, currVelocity, 5.0, 0.5);
+    if(distance > 3.0 && distance < 5.0) {
+      steering_force = 1.0 * steerToSeek(uTargetPosition, currentPosition, currVelocity, 10.0, 0.7);
       accel += steering_force / mass;   
-      accel += noise(currentPosition + vec3(vUv, 1.0)) * 0.5;
-    
-    
+    }
+      
   #endif
 
   #ifdef MODE_FLAG_TEXT

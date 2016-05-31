@@ -4,6 +4,8 @@ import THREE from "three";
 export default class AnimatedMesh extends THREE.Mesh {
   constructor(geometry, fps){
     super(geometry, new THREE.MeshNormalMaterial( {  morphTargets: true }))
+    this.geometry.center();
+    
     this._fps = fps;
     this.init();
   }

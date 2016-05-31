@@ -3,6 +3,7 @@ import GeometryUtils from 'imports?THREE=three!exports?THREE.GeometryUtils!./ext
 import fontDef from 'raw!three/examples/fonts/helvetiker_regular.typeface.js';
 
 const geometryParser = new THREE.JSONLoader().parse;
+
 export function parseGeometryJson(json){
   var model = geometryParser( json );
   return model.geometry;  
@@ -37,7 +38,7 @@ const longRow = function(data, k, count){
 
 export function createMeshFromJson(json, scale = 1.0){
   var mesh = new THREE.Mesh( parseGeometryJson(json), new THREE.MeshNormalMaterial() );
-
+  
   mesh.geometry.center();
   mesh.scale.setScalar(scale);
   return mesh;
@@ -73,7 +74,7 @@ export function generatePositionTexture(size) {
 
 }
 
-export function generateTextPoints(text = 'hello', size, pointCount){
+export function generateTextPoints(text, size, pointCount){
   if(!pointCount){
     pointCount = size * size / 2 // use half of all points per default
   }
