@@ -20,7 +20,7 @@ export default class MeshDecorator{
 
   deactivate(){
     this.spacepixels.simulator.velocityFlags.plotter = false;
-    this.spacepixels.off('step', this.handleStep );
+    this.spacepixels.removeListener('step', this.handleStep );
   }
 
   showMesh(mesh){

@@ -80,6 +80,11 @@ void main() {
     }
     
   #endif
+  
+  #ifdef MODE_FLAG_BOIDS
+    steering_force = s_galaxy_force(vUv, time, currentPosition, currVelocity);
+    accel += steering_force / mass;
+  #endif
 
   #ifdef MODE_FLAG_FOLLOWPOINT
     float distance = length(uTargetPosition - currentPosition );

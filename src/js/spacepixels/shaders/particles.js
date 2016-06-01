@@ -17,6 +17,7 @@ const uniforms = {
   //"uColor2": { type: "v3", value: new THREE.Vector3(0, 0, 1.0) },//6666ff
   "uColor1": { type: "v3", value: new THREE.Vector3(1.0, 0.4, 0.0) },//ff6600
   "uColor2": { type: "v3", value: new THREE.Vector3(0.4, 0.4, 1.0) },//6666ff
+  "uColor3": { type: "v3", value: new THREE.Vector3(0, 1, 0) },
   "uColorFreq": { type: "f", value: 1.0 },
   "uColorSpeed": { type: "f", value: 2.0 }
 }

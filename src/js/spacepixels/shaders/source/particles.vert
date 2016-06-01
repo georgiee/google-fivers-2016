@@ -18,12 +18,15 @@ uniform float uTime;
 uniform float uPointSize;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
+uniform vec3 uColor3;
 uniform float uColorFreq;
 uniform float uColorSpeed;
 
 //varying float vPointSize;
 void main() {
     vColor = mix(uColor1, uColor2, sin(uColorSpeed*uTime + uColorFreq*position.z*M_2PI)/2.0+0.5);
+    vColor = mix(uColor3, vColor, cos(uColorSpeed*uTime + uColorFreq*position.z*M_2PI)/4.0+1.0);
+    
     vec3 pos = texture2D(tPos, position.xy).rgb;
     vPos = pos;
     

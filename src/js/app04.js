@@ -20,32 +20,7 @@ function create(){
   camera= world.camera;
 
   gui.create(spacepixels);
-  general();
 }
-
-
-
-
-function general(){
-  //Random Movement
-  spacepixels.simulator.velocityFlags.random = true;
-  debug.gui.add(spacepixels.simulator.velocityFlags, 'random'); 
-
-  //Reset function
-  debug.params.reset = function(){
-    spacepixels.simulator.reset();
-  }
-
-  debug.gui.add(debug.params, 'reset'); 
-  
-  //other debugging
-  spacepixels.simulator.positionFlags.immediate = false;
-  debug.gui.add(spacepixels.simulator.positionFlags, 'immediate');
-}
-
-
-let cameraPath;
-
 
 export default { 
   run: function(){
