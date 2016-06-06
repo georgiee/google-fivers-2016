@@ -25,23 +25,13 @@ const externals = {
 const loaders = [
   {
     test: /\.jsx?$/,
-    exclude: /(node_modules|bower_components)/,
+    exclude: /(node_modules)/,
     loader: 'babel'
-  },
-  {
-    test: /node_modules/,
-    loader: 'ify'
   }
 ];
 
 const module = {
-  loaders, 
-  postLoaders: [
-    {
-      test: /\.js$/,
-      loader: 'ify'
-    }
-  ]
+  loaders
 }
 
 const plugins = [
@@ -51,10 +41,7 @@ const plugins = [
 ]
 
 const resolve = {
-  root: path.resolve(__dirname, 'js'),
-  alias :{
-    "three-hmr" : "webpack-three-hmr-test/lib/three-hmr"
-  }
+  root: path.resolve(__dirname, 'js')
 }
 
 const webpackConfig = {
