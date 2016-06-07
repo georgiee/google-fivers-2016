@@ -18,7 +18,8 @@ const output = {
 }
 
 const externals = {
-  "dat.GUI": "dat.GUI"
+  "dat.GUI": "dat.GUI",
+  "paper": "paper"
 }
 
 

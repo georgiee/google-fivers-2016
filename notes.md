@@ -1,3 +1,11 @@
+gshape.path.pathData = 'M...' 
+
+gshape.addKeysFromConsole()
+//to create the keyframe data. always call after a change of the object poperties.
+
+gshape.duped = true //to allow deletion
+gshape.setUpKeyframes
+
 window.board.setStage()
 window.board.removeAll();
 
@@ -124,3 +132,21 @@ Julia.strokeWidth(10)
 Library:
 Random stuff
 http://chancejs.com/
+
+
+
+
+fast forward
+setTimeout(this.setState.bind(this, {
+                    firstLoad: !1
+                }), 500),
+                setTimeout(function(){
+
+                  t.props.actions.advanceIntro()
+
+                  //fast forward
+                  t.props.actions.hideIntro()
+                  t.props.actions.onBoardContinue()
+
+                }, 500),
+                et || (windo

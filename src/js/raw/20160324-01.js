@@ -2714,6 +2714,8 @@
       , l = r(u)
       , c = window.paper;
     i.prototype.addKeyframes = function(t, e, n) {
+      //GK after mouse
+      //debugger;
         var r = void 0
           , i = void 0
           , a = !0
@@ -2726,6 +2728,8 @@
                   , h = p[1];
                 r = this.findGShape(parseInt(h)),
                 i = new l["default"](t,n,r.getPositionCopy(),r.fillColor,r.strokeC,r.strokeW),
+                //console.log(t,n,r);
+
                 r.addKey(i),
                 this.pushHistory(r.id, n, i),
                 0 === f && this.saveState()
@@ -3414,6 +3418,7 @@
     }
     ,
     i.prototype.setStage = function() {
+      //debugger;
         this.deleteAll();
         var t = window.w / 2
           , e = window.h / 2
@@ -3458,6 +3463,7 @@
         _ || this.saveLocal()
     }
     ,
+    //GK PARSING
     i.prototype.setStageFromLocal = function() {
         this.deleteAll();
         var t = JSON.parse(localStorage.getItem("boardStates"))
@@ -5703,6 +5709,9 @@
                 try {
                     for (var y, b = f[Symbol.iterator](); !(m = (y = b.next()).done); m = !0) {
                         var w = y.value;
+                        
+                        //console.log(l, w, l[w], h);
+
                         r = l[w][h],
                         i = c[w][h],
                         o = i.subtract(r),
@@ -12092,10 +12101,7 @@
                 (0,
                 f["default"])(this.props.actions.completeFinalTest),
                 window.addEventListener("click", function() {
-                    t.props.popups.timelineFaded && !t.props.popups.intro && window.isItemSelected && (t.props.actions.fadeInTimeline(),
-                    J = setTimeout(function() {
-                        window.isItemSelected || t.props.actions.fadeOutTimeline()
-                    }, rt))
+                    
                 }),
                 window.addEventListener("mousemove", function() {
                     t.props.popups.timelineFaded || (clearTimeout(J),
@@ -12121,7 +12127,22 @@
                 setTimeout(this.setState.bind(this, {
                     firstLoad: !1
                 }), 500),
-                setTimeout(this.props.actions.advanceIntro, 3e3),
+                setTimeout(function(){
+
+                  t.props.actions.advanceIntro()
+
+                  //GK: fast forward
+                  t.props.actions.hideIntro()
+                  setTimeout(function(){
+                    //t.props.actions.onBoardContinue()
+                    //t.props.actions.onBoardReset()
+                    if(window.__callBoardie){
+                      window.__callBoardie(t.props.actions, t.props.popups);
+                    }
+                  }, 500)
+                  //t.props.actions.onBoardReset()
+
+                }, 500),
                 et || (window.addEventListener("hashchange", n),
                 n(),
                 window.addEventListener("keydown", function(e) {
@@ -12134,6 +12155,10 @@
                 window.oncontextmenu = function() {
                     return !1
                 }
+
+                //console.log('this.props.actions', this.props.actions.onBoardContinue())
+
+
             }
         }, {
             key: "render",
@@ -13539,6 +13564,7 @@
         }, {
             key: "setGradients",
             value: function() {
+              console.log(x)
                 window.gradient = {
                     sunset: {
                         gradient: {
@@ -14348,8 +14374,9 @@
                 c["default"])("Welcome Button", "Start Over")
             }
         }, "Start Over"), a["default"].createElement("button", {
-            onFocus: function(t) {
-                return t.target.blur()
+            componentDidMount: function(t) {
+              console.log('o on!');
+                t.onContinue();
             },
             className: "yellow",
             onClick: function() {
@@ -14804,6 +14831,7 @@
           , a = e.visible
           , s = e.shareNameVal;
         e.rawBoard;
+        //console.log('n', n)
         switch (n) {
         case "TOGGLE_POPUP":
             if ("share" === r && !a) {
