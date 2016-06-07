@@ -60,7 +60,7 @@ class Me{
     rect.fillColor = 'black';
     //rect.fitBounds(Paper.view.bounds)
     rect.sendToBack();
-    var bgShape = this.addPath(rect, false)
+    var bgShape = this.addPath(rect, true)
     
     var path = bgShape.path.clone();
 
@@ -71,7 +71,7 @@ class Me{
 
     this.makeKeyframe2(bgShape, 1)
     bgShape.positionRevert();
-    
+
   }
 
   generatePath(){

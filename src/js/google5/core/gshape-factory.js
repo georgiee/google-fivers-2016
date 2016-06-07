@@ -2,6 +2,7 @@ let __classDefinition;
 
 
 function create(path, smooth, strokeColor, fillColor, isLine){
+  console.log('creating path');
   return new __classDefinition(path, smooth, strokeColor, fillColor, isLine)
 }
 

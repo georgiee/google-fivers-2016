@@ -1,3 +1,5 @@
+//complete all hidden tasks
+
 const tasks = [
   {
     action: function(){
@@ -57,6 +59,7 @@ parseInt("28tj", parseInt(10, 36)); -- 104743
       */
       
       window.activatePen(104743);
+      window.penToolActivated = false;//no need, we activate it when we need it
     }
   },
 
@@ -84,7 +87,7 @@ parseInt("28tj", parseInt(10, 36)); -- 104743
   }
 ]
 
-var startRunner = function(){
+var start = function(){
   
   var cursor = 0;
   next();
@@ -108,17 +111,4 @@ var startRunner = function(){
 }
 
 
-var handleKeyboard = function(e){
-  var code = e.keyCode ? e.keyCode : e.which;
-  if(code == 88){
-    window.onkeyup = null;
-    startRunner();
-  }
-}
-
-export default {
-  init: function(){
-    console.log('🙏 bonjour monsieur. let me do your work. Just press x to do it.');
-    window.onkeyup = handleKeyboard;
-  }
-}
+export default { start }
