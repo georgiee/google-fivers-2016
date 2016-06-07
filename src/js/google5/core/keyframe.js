@@ -36,7 +36,15 @@ export default {
     return new Keyframe(null, false, time, serializePath(path), fillColor, strokeColor, path.strokeWidth)
   },
 
+  createFromShapePath: function(shape, path, time){
+    var fillColor = path.fillColor.toCSS(true);
+    var strokeColor = 'black';
+
+    return new Keyframe(shape, false, time, serializePath(path), fillColor, strokeColor, path.strokeWidth)
+  },
+
   createFromShape: function(shape, time){
+
     var path = shape.path;
     var fillColor = path.fillColor.toCSS(true);
     var strokeColor = 'black';

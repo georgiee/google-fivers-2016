@@ -13,12 +13,17 @@
       padding: 0;
       overflow: hidden;
     }
+    .hidden{
+      visibility: hidden;
+    }
+    
   </style>
 </head>
 
 <body>
 
   <script src="https://cdn.rawgit.com/josephg/noisejs/master/perlin.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5.1/dat.gui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.1.1/chroma.min.js"></script>
@@ -27,6 +32,9 @@
   <div id="rabbit"></div>
   <div id="cl5" class="moony turtle wormtail padfood prongs"></div>
   
+
+  <img class="hidden" id="mimimi" src="images/me2.jpg" width="472" height="601"></img>
+
   <script src="js/raw/paper.min.js"></script>
 
   <!-- after paper, before the board -->

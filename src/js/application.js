@@ -1,4 +1,6 @@
 import Board from './google5/board';
+import Me from './google5/me';
+
 noise.seed(0.52);
 
 //setup is called when the board is mounting.
@@ -20,14 +22,15 @@ function init(){
 
 
 function boardCallback(actions, popups){
-  //window.isItemSelected = true;
-  //actions.fadeInTimeline();
+  window.isItemSelected = true;
+  actions.fadeInTimeline();
 
   //show timeline immediately
   //actions.onBoardContinue()
   actions.onBoardReset()
   
-  Board.start(window.board);
+  //Board.start(window.board);
+  Me.start(window.board);
 }
 
 window.__callBoardie = boardCallback;

@@ -12101,7 +12101,10 @@
                 (0,
                 f["default"])(this.props.actions.completeFinalTest),
                 window.addEventListener("click", function() {
-                    
+                    t.props.popups.timelineFaded && !t.props.popups.intro && window.isItemSelected && (t.props.actions.fadeInTimeline(),
+                    J = setTimeout(function() {
+                        window.isItemSelected || t.props.actions.fadeOutTimeline()
+                    }, rt))
                 }),
                 window.addEventListener("mousemove", function() {
                     t.props.popups.timelineFaded || (clearTimeout(J),
@@ -14585,7 +14588,7 @@
             progress: 0,
             shareUrl: "",
             slug: "",
-            isHacker: !1,
+            isHacker: true,
             pendingReq: !1
         });
         var n = e.type
